@@ -14,5 +14,3 @@ model Linha {
   criado  DateTime @default(now())
   usuario String
 }
-
-npx prisma migrate dev --name init

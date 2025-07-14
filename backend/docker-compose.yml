@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "55432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: conferencias
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/conferencias"
+      JWT_SECRET: "supersecret"
+    depends_on:
+      - db
+
+volumes:
+  postgres-data:
