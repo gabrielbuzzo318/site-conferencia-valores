@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
-import router from "./routes";   // 👈 importa
+import path from "path";
+import router from "./routes"; // 👈 já tá certo
 
 const app = express();
 const port = 3000;
@@ -8,7 +9,9 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-// ⬇️ Usa todas as rotas definidas em routes/index.ts
+// 🔥 Serve arquivos estáticos
+app.use("/uploads", express.static(path.resolve(__dirname, "..", "uploads")));
+
 app.use("/", router);
 
 app.listen(port, () => {
