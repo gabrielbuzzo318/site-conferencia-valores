@@ -1,15 +1,24 @@
 import { Router } from "express";
+import multer from "multer";
+import { uploadArquivo } from "../controllers/uploadController"; // 👈  mesmo nome!
 
 const router = Router();
+const upload = multer(); // salva em memória
 
-// rota health‑check
 router.get("/", (_req, res) => {
-  res.json({ ok: true, message: "API funcionando 🎉" });
+  res.json({ ok: true, msg: "API funcionando 🎉" });
 });
 
-// exemplo de rota protegida (futura)
-router.get("/ping", (_req, res) => {
-  res.json({ pong: true, date: new Date() });
-});
+router.post("/upload", upload.single("arquivo"), uploadArquivo); // 👈 usa a função
 
+export default router;
+
+import { getDocumentos } from "../controllers/getController";
+router.get("/documentos", getDocumentos);
+
+import { deleteDocumento } from "../controllers/deleteController";
+
+
+router.delete("/documentos/:id", deleteDocumento); // rota delete
+// Outras rotas...
 export default router;

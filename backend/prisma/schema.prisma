@@ -14,3 +14,9 @@ model Linha {
   criado  DateTime @default(now())
   usuario String
 }
+model Documento {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  conteudo  String
+  criadoEm  DateTime @default(now())
+}
